@@ -1,8 +1,9 @@
 #https://naucz-sie-testowac.czyitjestdlamnie.pl/
-#copying an expense
+#copying the expense
 
 from playwright.sync_api import sync_playwright
 import time
+
 with sync_playwright() as p:
 
     browser = p.chromium.launch(headless=False, slow_mo=600)
@@ -15,8 +16,10 @@ with sync_playwright() as p:
     page.locator('body > app-root > app-board > div > div > div.col-auto.flex-column.d-sm-flex.expene-list-column.ng-tns-c31-0 > div.expense-details.ng-trigger.ng-trigger-slideTopAnimation.ng-tns-c31-0.ng-star-inserted > div:nth-child(2) > input').fill('1500')
     page.locator('body > app-root > app-board > div > div > div.col-auto.flex-column.d-sm-flex.expene-list-column.ng-tns-c31-0 > div.expense-details.ng-trigger.ng-trigger-slideTopAnimation.ng-tns-c31-0.ng-star-inserted > div:nth-child(3) > input').fill('1999-01-02')
     page.click('body > app-root > app-board > div > div > div.col-auto.flex-column.d-sm-flex.expene-list-column.ng-tns-c31-0 > div.expense-details.ng-trigger.ng-trigger-slideTopAnimation.ng-tns-c31-0.ng-star-inserted > button.btn.btn-outline-success.float-end.ng-tns-c31-0 > i')
-    page.locator('.bi bi-clipboard ng-tns-c31-0 ng-star-inserted').click
-    time.sleep(3)
+    
+    #copying the input
+    page.click('button[data-cy=copy-expense-btn]')
+    time.sleep(2)
     
     context.storage_state(path="data/state.json")
     browser.close()
